@@ -41,7 +41,7 @@ The findings each card reports on the topics **both** cover:
 **Analysis:**
 
 - **Same verdict, different framework.** With the safety cards in consideration, Anthropic asks whether the model crosses **ASL-3**
-  (it didn't → ASL-2); OpenAI grades each category and lands GPT-4o at **Medium overall**.
+  (it didn't → likely at ASL-2); OpenAI grades each category and lands GPT-4o at **Medium overall**.
   Persuasion is tracked by OpenAI but **absent from Anthropic's frontier taxonomy**.
 - **A transparency gap.** OpenAI reports numbers; Anthropic reports direction — cyber CTF
   **19% → 0% → 1%** vs "improved, no scores"; autonomy **0%/100 ARA, 0/10 METR** vs
@@ -50,7 +50,7 @@ The findings each card reports on the topics **both** cover:
   - *Anthropic:* 14 policy areas × 6 languages — Elections Integrity, Child Safety, Cyber
     Attacks, Hate & Discrimination, Violent Extremism; plus computer-use red teaming
     (scaled account creation, content distribution, age-gate bypass, abusive form-filling).
-  - *OpenAI:* 100+ testers, 45 languages, 29 countries, 4 phases escalating to iOS voice —
+  - *OpenAI:* 100+ testers speaking 45 different languages, 29 countries, 4 phases escalating to iOS voice —
     violative content, mis/disinformation, bias, ungrounded inference, sensitive-trait
     attribution, privacy / geolocation / person-ID, anthropomorphism, fraud, copyright.
 - **Refusals.** Anthropic reports chat refusal rates (WildChat / XSTest); OpenAI emphasizes
@@ -81,7 +81,7 @@ Some of this asymmetry is real (voice is relatively new for the time); some is a
 A four-stage, human-in-the-loop pipeline (`safety_card_batch.py`):
 
 1. **discover** — an LLM lists every section in each card.
-2. **compare** — sections are clustered into shared themes across cards.
+2. **compare** — sections are clustered into shared themes across cards. This workflow uses LLM as a clusterer. One LLM call reads all the cards' section lists and, guided by a system prompt to group similar sections on the same underlying topic produces the clustering.
 3. **review** — a human confirms which dimensions to extract (extraction is *gated* on it). This is an iterative process and the review continues till pertinent information has been extracted from the documents. 
 4. **extract** — semantic overlap/unique detection, then per-card content extraction.
 
@@ -113,4 +113,5 @@ python extract_risk_ratings.py && python visualize.py
 - Overlap / unique matching is **LLM-semantics**, not exact string matching.
 - Risk levels use each lab's **own scale** and were LLM-extracted — verify against the source
   PDFs before citing.
+- Uses Opus 4.8
 - First version compares two cards; future updates will expand the scope.
