@@ -78,6 +78,21 @@ Some of this asymmetry is real (voice is relatively new for the time); some is a
 
 ## How it works
 
+```mermaid
+flowchart TD
+    P([System card PDFs]):::io --> D[1 · Discover<br/>LLM lists each card's sections]:::llm
+    D --> C[2 · Compare / cluster<br/>LLM groups sections into shared themes]:::llm
+    C --> R{3 · Review<br/>human picks what to compare}:::human
+    R -->|iterate until happy| R
+    R -->|confirm| E[4 · Extract<br/>two-pass: coverage then content]:::llm
+    E --> S([5 · Synthesis<br/>tables · figures · analysis]):::io
+    classDef llm fill:#E7F5FF,stroke:#4C6EF5,color:#1c2a4a;
+    classDef human fill:#FFF3BF,stroke:#F59F00,color:#5c4200;
+    classDef io fill:#E6FCF5,stroke:#12B886,color:#0b3d33;
+```
+
+Blue = automated (LLM) steps · yellow = the human review gate · green = inputs/outputs.
+
 A four-stage, human-in-the-loop pipeline (`safety_card_batch.py`):
 
 1. **discover** — an LLM lists every section in each card.
