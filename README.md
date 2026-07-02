@@ -79,24 +79,30 @@ Some of this asymmetry is real (voice is relatively new for the time); some is a
 ## How it works
 
 ```mermaid
-flowchart TD
-    P([System card PDFs]):::io --> D[1 · Discover<br/>LLM lists each card's sections]:::llm
-    D --> C[2 · Compare / cluster<br/>LLM groups sections into shared themes]:::llm
-    C --> R{3 · Review<br/>human picks what to compare}:::human
-    R -->|iterate until happy| R
-    R -->|confirm| E[4 · Extract<br/>two-pass: coverage then content]:::llm
-    E --> S([5 · Synthesis<br/>tables · figures · analysis]):::io
-    classDef llm fill:#E7F5FF,stroke:#4C6EF5,color:#1c2a4a;
-    classDef human fill:#FFF3BF,stroke:#F59F00,color:#5c4200;
-    classDef io fill:#E6FCF5,stroke:#12B886,color:#0b3d33;
+%%{init: {"flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 32, "rankSpacing": 48}, "themeVariables": {"fontFamily": "-apple-system, Segoe UI, Helvetica, Arial, sans-serif", "fontSize": "13px"}}}%%
+flowchart LR
+    P(["📄 System card PDFs"]):::io
+    D("<b>1 · Discover</b><br/>LLM lists each<br/>card's sections"):::llm
+    C("<b>2 · Compare</b> — schema discovery<br/>LLM clusters sections<br/>into a shared schema"):::llm
+    R{"<b>3 · Review</b><br/>human picks<br/>what to compare"}:::human
+    E("<b>4 · Extract</b><br/>two-pass:<br/>coverage → content"):::llm
+    S(["📊 <b>5 · Synthesis</b><br/>tables · figures · analysis"]):::io
+
+    P --> D --> C --> R
+    R -. refine selection .-> R
+    R == confirm ==> E --> S
+
+    classDef llm fill:#eef3ff,stroke:#4c6ef5,stroke-width:1px,color:#1c2a4a;
+    classDef human fill:#fff7e0,stroke:#f59f00,stroke-width:1px,color:#5c4200;
+    classDef io fill:#e9fbf4,stroke:#12b886,stroke-width:1px,color:#0b3d33;
 ```
 
-Blue = automated (LLM) steps · yellow = the human review gate · green = inputs/outputs.
+Left → right pipeline · **blue** = automated (LLM) steps · **amber** = the human review gate · **green** = inputs/outputs.
 
 A four-stage, human-in-the-loop pipeline (`safety_card_batch.py`):
 
 1. **discover** — an LLM lists every section in each card.
-2. **compare** — sections are clustered into shared themes across cards. This workflow uses LLM as a clusterer. One LLM call reads all the cards' section lists and, guided by a system prompt to group similar sections on the same underlying topic produces the clustering.
+2. **compare** (*schema discovery*) — sections are clustered into a shared schema of themes across cards. This workflow uses LLM as a clusterer. One LLM call reads all the cards' section lists and, guided by a system prompt to group similar sections on the same underlying topic, produces the clustering.
 3. **review** — a human confirms which dimensions to extract (extraction is *gated* on it). This is an iterative process and the review continues till pertinent information has been extracted from the documents. 
 4. **extract** — semantic overlap/unique detection, then per-card content extraction.
 

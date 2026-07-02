@@ -80,7 +80,7 @@ Some of this asymmetry is real (voice is genuinely new); some is a format artifa
 ## How it works
 
 A four-stage, human-in-the-loop pipeline (`safety_card_batch.py`): **discover** (list each
-card's sections) → **compare** (cluster into shared themes) → **review** (human confirms what
+card's sections) → **compare** (*schema discovery* — cluster into a shared schema of themes) → **review** (human confirms what
 to extract; extraction is gated) → **extract** (semantic overlap/unique, then per-card content).
 
 Code: [github.com/srijac/safety-card-analyzer](https://github.com/srijac/safety-card-analyzer)
