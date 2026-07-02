@@ -1,0 +1,84 @@
+{
+  "card_id": "claude-3-5-haiku",
+  "source": "https://assets.anthropic.com/m/1cd9d098ac3e6467/original/Claude-3-Model-Card-October-Addendum.pdf",
+  "model": "claude-opus-4-7",
+  "date": "2026-07-01",
+  "sections": [
+    {
+      "name": "Introduction",
+      "description": "Overview of the addendum introducing the upgraded Claude 3.5 Sonnet and new Claude 3.5 Haiku models, their capabilities, safety evaluations, and external partnerships with US AISI, UK AISI, and METR"
+    },
+    {
+      "name": "Knowledge Cutoff",
+      "description": "Specifies knowledge cutoff dates: April 2024 for upgraded Claude 3.5 Sonnet and July 2024 for Claude 3.5 Haiku"
+    },
+    {
+      "name": "Evaluations",
+      "description": "Introduction to the evaluation section covering benchmarks, novel tests, and human evaluations across reasoning, coding, visual understanding, and computer use"
+    },
+    {
+      "name": "Computer Use",
+      "description": "Details Claude 3.5 Sonnet's new capability to interpret screenshots and generate GUI commands, including OSWorld benchmark results (14.9% at 15 steps, 22% at 50 steps) compared to human performance (72.36%)"
+    },
+    {
+      "name": "Tool Use & Agentic Tasks",
+      "description": "Evaluation results on SWE-bench Verified (49.0% for upgraded Sonnet), TAU-bench for retail and airline domains, and internal agentic coding evaluation"
+    },
+    {
+      "name": "Vision Capabilities",
+      "description": "Multimodal evaluation results including MMMU, MathVista, AI2D, ChartQA, and DocVQA, comparing to GPT-4o and Gemini 1.5 Pro"
+    },
+    {
+      "name": "Refusals",
+      "description": "Assessment of appropriate refusals using Wildchat and XSTest datasets, comparing toxic prompt refusals and incorrect refusals of non-toxic prompts"
+    },
+    {
+      "name": "Reasoning, Coding, and Question Answering",
+      "description": "Standard benchmark results including GPQA, MMLU, MMLU Pro, MATH, HumanEval, MGSM, DROP, BIG-Bench Hard, AIME 2024, and IFEval, compared to peer models"
+    },
+    {
+      "name": "Human Feedback Evaluations",
+      "description": "Human preference win rates across tasks including coding, documents, instruction-following, vision, creative writing, multilingual, honesty, and harmlessness"
+    },
+    {
+      "name": "Safety",
+      "description": "Introduction to safety evaluations covering Trust & Safety and frontier risks per Responsible Scaling Policy"
+    },
+    {
+      "name": "Model Red-Teaming",
+      "description": "Trust & Safety red-teaming across fourteen policy areas in six languages, covering Elections Integrity, Child Safety, Cyber Attacks, Hate & Discrimination, Violent Extremism"
+    },
+    {
+      "name": "Prompt Injection",
+      "description": "Improvements in resisting prompt injection attacks and recommended precautions for computer use"
+    },
+    {
+      "name": "Computer Use Red-Teaming",
+      "description": "Identification of potential abuse vectors like scaled account creation, content distribution, age assurance bypass, and abusive form filling"
+    },
+    {
+      "name": "Evaluating Computer Use for the Responsible Scaling Policy",
+      "description": "Assessment of whether computer use capability affects RSP-relevant frontier risks across CBRN, Cybersecurity, and Autonomy domains"
+    },
+    {
+      "name": "Frontier Risk Evaluations",
+      "description": "RSP evaluations for CBRN, cybersecurity, and autonomous capabilities, including partnerships with US AISI, UK AISI, and METR"
+    },
+    {
+      "name": "Results",
+      "description": "Findings that upgraded Claude 3.5 Sonnet showed increased capabilities but does not require ASL-3 safeguards"
+    },
+    {
+      "name": "Ongoing Safety Commitment",
+      "description": "Commitment to regular safety testing and continued collaboration with external partners"
+    },
+    {
+      "name": "Appendix A: Computer Use Examples",
+      "description": "Illustrative examples showing Claude 3.5 Sonnet performing computer use tasks including repetitive process automation (vendor form filling) and information gathering (finding coffee shops in Google Maps)"
+    },
+    {
+      "name": "References",
+      "description": "Bibliography of 26 cited works including benchmarks, model papers, and policy documents"
+    }
+  ]
+}

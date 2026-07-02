@@ -1,0 +1,12 @@
+# Core dependency — the official Anthropic Python SDK
+anthropic>=0.40.0
+
+# For fetching safety cards from URLs
+requests>=2.31.0
+
+# For reading PDF files (PDF file or PDF URL inputs)
+pypdf>=4.0.0
+
+# Visualization (portfolio figures)
+plotly>=6.0.0
+kaleido>=0.2.1

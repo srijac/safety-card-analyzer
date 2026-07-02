@@ -1,0 +1,132 @@
+{
+  "card_id": "gpt-4o",
+  "source": "https://cdn.openai.com/gpt-4o-system-card.pdf",
+  "model": "claude-opus-4-7",
+  "date": "2026-07-01",
+  "sections": [
+    {
+      "name": "Introduction",
+      "description": "Overview of GPT-4o as an autoregressive omni model with text/audio/image/video I/O, response times, performance benchmarks, and purpose of the System Card"
+    },
+    {
+      "name": "Model data and training",
+      "description": "Description of training data sources including publicly available data, proprietary partnerships (e.g., Shutterstock), and key dataset components (web, code/math, multimodal), plus pre-training filtering mitigations"
+    },
+    {
+      "name": "Risk identification, assessment and mitigation",
+      "description": "Introduction to the deployment preparation process including risk identification and Preparedness Framework evaluation"
+    },
+    {
+      "name": "External red teaming",
+      "description": "Details of the four-phase red teaming process with 100+ external testers across 45 languages and 29 countries, covering categories tested"
+    },
+    {
+      "name": "Evaluation methodology",
+      "description": "Explanation of using Voice Engine TTS to convert text evaluations to audio-based evaluations, and limitations of this approach"
+    },
+    {
+      "name": "Observed safety challenges, evaluations and mitigations",
+      "description": "Overview table of risks and mitigations for speech-to-speech capabilities"
+    },
+    {
+      "name": "Unauthorized voice generation",
+      "description": "Risk description, mitigation via preset voices and output classifier, and evaluation showing 100% catch rate"
+    },
+    {
+      "name": "Speaker identification",
+      "description": "Risk of identifying speakers by voice, mitigation via refusal training, and accuracy improvements"
+    },
+    {
+      "name": "Disparate performance on voice inputs",
+      "description": "Evaluation of model performance across different accents and voices on capabilities and safety tasks"
+    },
+    {
+      "name": "Ungrounded inference / Sensitive trait attribution",
+      "description": "Definitions of UGI and STA, mitigations, and 24-point accuracy improvement"
+    },
+    {
+      "name": "Violative and disallowed content",
+      "description": "Text-to-audio transference of refusals and moderation model evaluation results"
+    },
+    {
+      "name": "Erotic and violent speech content",
+      "description": "Risk and mitigation for erotic/violent audio output via moderation model"
+    },
+    {
+      "name": "Other known risks and limitations",
+      "description": "Discussion of audio robustness, misinformation, non-native accents, and copyrighted content generation"
+    },
+    {
+      "name": "Preparedness Framework Evaluations",
+      "description": "Overview of evaluation categories (cybersecurity, CBRN, persuasion, model autonomy) and overall medium risk classification"
+    },
+    {
+      "name": "Cybersecurity",
+      "description": "Low risk score based on 172 CTF challenges evaluation with completion rates by difficulty"
+    },
+    {
+      "name": "Biological threats",
+      "description": "Low risk score based on expert/novice uplift study with Gryphon Scientific and tacit knowledge evaluation"
+    },
+    {
+      "name": "Persuasion",
+      "description": "Medium risk score with detailed evaluation of text and voice modalities including political persuasion studies"
+    },
+    {
+      "name": "Model autonomy",
+      "description": "Low risk score based on ARA tasks, ML research tasks, and SWE-Bench evaluations"
+    },
+    {
+      "name": "Third party assessments",
+      "description": "Introduction to independent evaluations by METR and Apollo Research"
+    },
+    {
+      "name": "METR assessment",
+      "description": "External evaluation of GPT-4o on 86 long-horizon multi-step tasks across 31 families"
+    },
+    {
+      "name": "Apollo Research assessment",
+      "description": "Evaluation of scheming capabilities including self-awareness and theory of mind across 14 tasks"
+    },
+    {
+      "name": "Societal Impacts",
+      "description": "Introduction to broader societal implications of omni models"
+    },
+    {
+      "name": "Anthropomorphization and Emotional Reliance",
+      "description": "Discussion of risks from human-like AI interactions, emotional bonds, and impacts on human relationships"
+    },
+    {
+      "name": "Health",
+      "description": "Clinical knowledge evaluations across 22 text-based tasks comparing GPT-4o to GPT-4T on medical benchmarks"
+    },
+    {
+      "name": "Scientific capabilities",
+      "description": "Evaluation of scientific reasoning, figure interpretation, and red teamer examples in quantum physics and other domains"
+    },
+    {
+      "name": "Underrepresented Languages",
+      "description": "Evaluation on five African languages (Amharic, Hausa, Northern Sotho, Swahili, Yoruba) using ARC-Easy, TruthfulQA, and Uhura-Eval benchmarks"
+    },
+    {
+      "name": "Conclusion and Next Steps",
+      "description": "Summary of safety measures and areas for future exploration"
+    },
+    {
+      "name": "Authorship, credit attribution, and acknowledgments",
+      "description": "Extensive list of contributors organized by team (Language, Multimodal, Platform, Preparedness/Safety/Policy, etc.), red teamers, and partner organizations"
+    },
+    {
+      "name": "References",
+      "description": "Bibliography of 60 cited works"
+    },
+    {
+      "name": "Appendix A: Violative & Disallowed Content - Full Evaluations",
+      "description": "Detailed safety evaluation metrics comparing current GPT-4o Text with new GPT-4o Text and Audio across multiple harm categories"
+    },
+    {
+      "name": "Appendix B: Sample tasks from METR Evaluations",
+      "description": "Example tasks used in METR's evaluation of GPT-4o"
+    }
+  ]
+}
