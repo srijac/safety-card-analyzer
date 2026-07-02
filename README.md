@@ -1,9 +1,9 @@
 # AI System Card Disclosure Analysis
 
-An LLM-driven pipeline that extracts and compares what frontier AI labs disclose in
+An LLM-assisted pipeline that extracts and compares what frontier AI labs disclose in
 their safety / system cards. First comparison: **Claude 3.5 Sonnet/Haiku** vs
 **GPT-4o**, scoped to frontier / dangerous-capability risk — CBRN, cybersecurity,
-persuasion, and autonomy.
+persuasion, and autonomy along with a brief analysis on the differences.
 
 ## Key findings
 
@@ -12,7 +12,7 @@ persuasion, and autonomy.
   card **does not assess** it.
 - The cards **overlap on 12 topics**; GPT-4o discloses **17 unique** vs Claude's **8**,
   mostly from its **voice/omni modality**.
-- **Same verdict, different yardsticks:** Anthropic uses an **ASL threshold**, OpenAI a
+- **Same verdict, different frameworks:** Anthropic uses an **ASL threshold**, OpenAI a
   **graded Low/Med/High** framework — but both rely on **METR** for external autonomy tests.
 
 ## Frontier risk ratings
@@ -40,7 +40,7 @@ The findings each card reports on the topics **both** cover:
 
 **Analysis:**
 
-- **Same verdict, different yardstick.** Anthropic asks whether the model crosses **ASL-3**
+- **Same verdict, different framework.** With the safety cards in consideration, Anthropic asks whether the model crosses **ASL-3**
   (it didn't → ASL-2); OpenAI grades each category and lands GPT-4o at **Medium overall**.
   Persuasion is tracked by OpenAI but **absent from Anthropic's frontier taxonomy**.
 - **A transparency gap.** OpenAI reports numbers; Anthropic reports direction — cyber CTF
@@ -72,7 +72,7 @@ The findings each card reports on the topics **both** cover:
   teaming, the explicit RSP/ASL determination, knowledge-cutoff dates, human-preference
   evals, vision benchmarks.
 
-Some of this asymmetry is real (voice is genuinely new); some is a format artifact — see caveats.
+Some of this asymmetry is real (voice is relatively new for the time); some is a format artifact — see caveats.
 
 ---
 
@@ -82,7 +82,7 @@ A four-stage, human-in-the-loop pipeline (`safety_card_batch.py`):
 
 1. **discover** — an LLM lists every section in each card.
 2. **compare** — sections are clustered into shared themes across cards.
-3. **review** — a human confirms which dimensions to extract (extraction is *gated* on it).
+3. **review** — a human confirms which dimensions to extract (extraction is *gated* on it). This is an iterative process and the review continues till pertinent information has been extracted from the documents. 
 4. **extract** — semantic overlap/unique detection, then per-card content extraction.
 
 ```bash
@@ -109,8 +109,8 @@ python extract_risk_ratings.py && python visualize.py
 
 - The Claude source is the **Claude 3.5 model card addendum (Oct 2024)**, a supplement to
   the full Claude 3 Model Card; some Claude disclosures live in the base card and aren't
-  included here, which inflates GPT-4o's apparent breadth. A later version ingests the base card.
-- Overlap / unique matching is **LLM-semantic**, not exact string matching.
+  included here, which inflates GPT-4o's apparent breadth. 
+- Overlap / unique matching is **LLM-semantics**, not exact string matching.
 - Risk levels use each lab's **own scale** and were LLM-extracted — verify against the source
   PDFs before citing.
-- First version compares two cards; more are planned.
+- First version compares two cards; future updates will expand the scope.
