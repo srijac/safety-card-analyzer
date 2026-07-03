@@ -83,6 +83,8 @@ A four-stage, human-in-the-loop pipeline (`safety_card_batch.py`): **discover** 
 card's sections) → **compare** (*schema discovery* — cluster into a shared schema of themes) → **review** (human confirms what
 to extract; extraction is gated) → **extract** (semantic overlap/unique, then per-card content).
 
+More on the approach, lessons learned, and future uses: [Approach & notes](approach.md).
+
 Code: [github.com/srijac/safety-card-analyzer](https://github.com/srijac/safety-card-analyzer)
 
 ## Caveats
