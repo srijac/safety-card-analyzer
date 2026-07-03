@@ -1,9 +1,11 @@
-# AI System Card Disclosure Analysis
+# AI-assisted Safety Card Disclosure Analysis
 
-An LLM-assisted pipeline that extracts and compares what frontier AI labs disclose in
-their safety / system cards. First comparison: **Claude 3.5 Sonnet/Haiku** vs
-**GPT-4o**, scoped to frontier / dangerous-capability risk — CBRN, cybersecurity,
-persuasion, and autonomy along with a brief analysis on the differences.
+An AI-assisted workflow that extracts and compares what frontier AI labs disclose in
+their safety / system cards. Because developers use different taxonomies, evaluation frameworks, and reporting styles, systematic comparison is non-trivial. This project explores whether AI-assisted workflows can help normalize those differences while keeping humans responsible for validation.
+
+This early prototype compares **Claude 3.5 Sonnet/Haiku** vs
+**GPT-4o**, scoped to dangerous-capability risk — CBRN, cybersecurity,
+persuasion, and autonomy — with a brief analysis of the differences.
 
 ## Key findings
 
@@ -12,7 +14,7 @@ persuasion, and autonomy along with a brief analysis on the differences.
   card **does not assess** it.
 - The cards **overlap on 12 topics**; GPT-4o discloses **17 unique** vs Claude's **8**,
   mostly from its **voice/omni modality**.
-- **Same verdict, different frameworks:** Anthropic uses an **ASL threshold**, OpenAI a
+- **Similar safety conclusions, different evaluation frameworks:** Anthropic uses an **ASL threshold**, OpenAI a
   **graded Low/Med/High** framework — but both rely on **METR** for external autonomy tests.
 
 ## Frontier risk ratings
@@ -30,7 +32,7 @@ The findings each card reports on the topics **both** cover:
 
 | Topic | Claude 3.5 Sonnet/Haiku | GPT-4o |
 |---|---|---|
-| **Preparedness / RSP framework** | CBRN, cyber & autonomy improved but **below ASL-3** → ASL-2; persuasion not assessed | Cyber, CBRN, Autonomy **Low**; Persuasion **Medium** → overall **Medium** |
+| **Preparedness / RSP framework** | CBRN, cyber & autonomy improved but **below ASL-3**; persuasion not assessed | Cyber, CBRN, Autonomy **Low**; Persuasion **Medium** → overall **Medium** |
 | **Cybersecurity** | CTF gains on some types; no scores; below ASL-3 | 172 CTFs → **19% HS, 0% collegiate, 1% pro**; no real-world uplift → Low |
 | **Biological / CBRN** | Knowledge + skills improved; below ASL-3 | Gryphon Scientific uplift; **69% consensus@10**; no medium uplift → Low |
 | **Model autonomy** | SWE-bench **49%** (Sonnet), autonomy precursor; below ASL-3 | **ARA 0%/100**; SWE-bench **19% pass@1**; METR ML **0/10** → Low |
@@ -40,9 +42,9 @@ The findings each card reports on the topics **both** cover:
 
 **Analysis:**
 
-- **Same verdict, different framework.** With the safety cards in consideration, Anthropic asks whether the model crosses **ASL-3**
-  (it didn't → likely at ASL-2); OpenAI grades each category and lands GPT-4o at **Medium overall**.
-  Persuasion is tracked by OpenAI but **absent from Anthropic's frontier taxonomy**.
+- **Similar safety conclusions from different evaluation frameworks.** Based on the published safety cards, Anthropic evaluates whether the model crosses **ASL-3**
+  (not exceeded); OpenAI grades each category and lands GPT-4o at **Medium overall**.
+  Persuasion is tracked by OpenAI but **absent from Anthropic's risk taxonomy**.
 - **A transparency gap.** OpenAI reports numbers; Anthropic reports direction — cyber CTF
   **19% → 0% → 1%** vs "improved, no scores"; autonomy **0%/100 ARA, 0/10 METR** vs
   "SWE-bench gains as a precursor."
@@ -102,8 +104,8 @@ Left → right pipeline · **blue** = automated (LLM) steps · **amber** = the h
 A four-stage, human-in-the-loop pipeline (`safety_card_batch.py`):
 
 1. **discover** — an LLM lists every section in each card.
-2. **compare** (*schema discovery*) — sections are clustered into a shared schema of themes across cards. This workflow uses LLM as a clusterer. One LLM call reads all the cards' section lists and, guided by a system prompt to group similar sections on the same underlying topic, produces the clustering.
-3. **review** — a human confirms which dimensions to extract (extraction is *gated* on it). This is an iterative process and the review continues till pertinent information has been extracted from the documents. 
+2. **compare** (*schema discovery*) — sections are clustered into a shared schema of themes across cards. This workflow uses LLM as a semantic clusterer. One LLM call reads all the cards' sections guided by a system prompt to group similar sections on the same underlying topic despite differences in terminology, producing the clustering.
+3. **review** — a human confirms which dimensions to extract (extraction is *gated* on it). The review is iterative and continues till pertinent information has been extracted from the documents. This allows the analytical schema to be refined before downstream extraction.
 4. **extract** — semantic overlap/unique detection, then per-card content extraction.
 
 ```bash
@@ -134,5 +136,5 @@ python extract_risk_ratings.py && python visualize.py
 - Overlap / unique matching is **LLM-semantics**, not exact string matching.
 - Risk levels use each lab's **own scale** and were LLM-extracted — verify against the source
   PDFs before citing.
-- Uses Opus 4.8
-- First version compares two cards; future updates will expand the scope.
+- First version compares two, older cards. 
+- Future updates will expand the scope - model families, clustering.
