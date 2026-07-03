@@ -85,8 +85,8 @@ Some of this asymmetry is real (voice is relatively new for the time); some is a
 A four-stage, human-in-the-loop pipeline (`safety_card_batch.py`):
 
 1. **discover** — an LLM lists every section in each card.
-2. **compare** (*schema discovery*) — sections are clustered into a shared schema of themes across cards. This workflow uses LLM as a semantic clusterer. One LLM call reads all the cards' sections guided by a system prompt to group similar sections on the same underlying topic despite differences in terminology, producing the clustering.
-3. **review** — a human confirms which dimensions to extract (extraction is *gated* on it). The review is iterative and continues till pertinent information has been extracted from the documents. This allows the analytical schema to be refined before downstream extraction.
+2. **compare** (*schema discovery*) — sections are clustered into a shared schema of themes across cards. This workflow uses LLM as a semantic clusterer. One LLM call reads the section inventories from all cards and, guided by a system prompt, clusters semantically related sections despite differences in terminology.
+3. **review** — a human confirms which dimensions to extract (extraction is *gated* on it). The review is iterative and continues until pertinent information has been extracted from the documents. This allows the analytical schema to be refined before downstream extraction.
 4. **extract** — semantic overlap/unique detection, then per-card content extraction.
 
 ```bash
@@ -117,5 +117,5 @@ python extract_risk_ratings.py && python visualize.py
 - Overlap / unique matching is **LLM-semantics**, not exact string matching.
 - Risk levels use each lab's **own scale** and were LLM-extracted — verify against the source
   PDFs before citing.
-- First version compares two, older cards. 
+- This prototype compares two earlier system cards.
 - Future updates will expand the scope - model families, clustering.
