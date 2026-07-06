@@ -7,6 +7,8 @@ This early prototype compares **Claude 3.5 Sonnet/Haiku** vs
 **GPT-4o**, scoped to dangerous-capability risk — CBRN, cybersecurity,
 persuasion, and autonomy — with a brief analysis of the differences.
 
+📖 [Additional discussion](https://srijac.github.io/safety-card-analyzer/discussion.html)
+
 ## Key findings
 
 - Both labs judged these models **low-concern on CBRN, cybersecurity, and autonomy**.
