@@ -89,6 +89,7 @@ def fig_risk_ratings(data) -> go.Figure:
     # Discrete bands: 0 grey (not assessed), 1 green (low), 2 amber (med), 3 red (high).
     fig = go.Figure(go.Heatmap(
         z=z, x=cols, y=caps, text=text, texttemplate="%{text}",
+        textfont=dict(size=16),
         zmin=0, zmax=3, showscale=False, xgap=4, ygap=4,
         colorscale=[[0.0, "#E9ECEF"], [0.167, "#E9ECEF"],
                     [0.167, "#40C057"], [0.5, "#40C057"],
@@ -101,6 +102,7 @@ def fig_risk_ratings(data) -> go.Figure:
               "<sup>Each lab's own scale (Anthropic ASL vs OpenAI Low/Med/High); "
               "grey = not assessed</sup>",
         template="plotly_white", height=430,
+        font=dict(size=15),
         margin=dict(t=90, l=110, r=30, b=40),
     )
     fig.update_yaxes(autorange="reversed")
@@ -120,9 +122,44 @@ def fig_disclosure_matrix(topics, present, labels, a, b) -> go.Figure:
         title="Who discloses what (topic × card)",
         template="plotly_white",
         height=max(500, 22 * len(topics)),
+        font=dict(size=14),
         margin=dict(t=60, l=280, r=30, b=40),
     )
     fig.update_yaxes(autorange="reversed")
+    return fig
+
+
+def fig_cluster_treemap(data) -> go.Figure:
+    """
+    Visualize the LLM-as-clusterer OUTPUT: card sections grouped into themes.
+    (No embedding space exists in this method, so this shows the assignments,
+    not a 2-D similarity map.)
+    """
+    card_ids = data["card_ids"]
+    total = len(card_ids)
+    ids, labels, parents, colors = ["root"], ["LLM-clustered themes"], [""], ["#F8F9FA"]
+    for t in data["themes"]:
+        tid = "T::" + t["theme"]
+        full = t.get("coverage", "").startswith(f"{total}/")
+        ids.append(tid)
+        labels.append(f"{t['theme']}  ({t.get('coverage','')})")
+        parents.append("root")
+        colors.append("#40C057" if full else "#CED4DA")   # green = all cards, grey = one
+        for cid, sec in t["cards"].items():
+            ids.append(f"{tid}::{cid}")
+            labels.append(f"{cid.split('-')[0]}: {sec}")
+            parents.append(tid)
+            colors.append(COLORS[0] if cid == card_ids[0] else COLORS[1])
+    fig = go.Figure(go.Treemap(
+        ids=ids, labels=labels, parents=parents, marker=dict(colors=colors),
+        tiling=dict(pad=3), hovertemplate="%{label}<extra></extra>",
+    ))
+    fig.update_layout(
+        title="Semantic clustering — card sections grouped into themes<br>"
+              "<sup>Green theme = both cards; grey = one card. Leaf color = source card. "
+              "(LLM-as-clusterer — assignments, not an embedding map.)</sup>",
+        template="plotly_white", height=760, margin=dict(t=90, l=10, r=10, b=10),
+    )
     return fig
 
 
@@ -162,6 +199,10 @@ def main() -> None:
         save(fig_risk_ratings(json.loads(rp.read_text(encoding="utf-8"))), "risk_ratings")
     else:
         print("   (no risk_ratings__*.json — run extract_risk_ratings.py for the risk figure)")
+
+    tp = COMPARISON / "themes.json"
+    if tp.exists():
+        save(fig_cluster_treemap(json.loads(tp.read_text(encoding="utf-8"))), "clustering_treemap")
 
     print("   done.")
 
